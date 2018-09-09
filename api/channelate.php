@@ -34,7 +34,7 @@ try {
 
     $spanTags = $doc->getElementsByTagName('span');
     foreach($spanTags as $span){
-        if($span->getAttribute('class') == "comic-tall") { 
+        if($span->getAttribute('class') == "comic-square") { 
             $resp['img'] = $span->firstChild->getAttribute('src');
             $resp['title'] = $span->firstChild->getAttribute('title');
         }
