@@ -1,5 +1,6 @@
 import sys
-sys.path.append("..") # adds higher directory to python modules path.
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import pymongo
 import requests
 import json
@@ -7,6 +8,7 @@ import json
 from services import services
 
 from config import config
+
 
 # connect to mongodb
 mongo = pymongo.MongoClient(f"mongodb+srv://{config['mongo_user']}:{config['mongo_pass']}@{config['mongo_host']}/test?retryWrites=true")["comics"]
