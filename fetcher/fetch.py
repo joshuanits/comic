@@ -26,4 +26,4 @@ for id, service in services.items():
         if mongo['latest'].find({"comic_id": service.id}).count() == 0:
             mongo['latest'].insert({"comic_id": service.id, "latest_id": id})
         else:
-            mongo['latest'].update({"comic_id": service.id}, {"latest_id": id})
+            mongo['latest'].update({"comic_id": service.id}, {"$set": {"latest_id": id}})
