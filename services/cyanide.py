@@ -29,7 +29,7 @@ class Cyanide:
         pass
 
     def get_latest_id(self):
-        url = self.api_url.replace("{0}", str(id))
+        url = self.api_url.replace("{0}", "0")
         r = requests.get(url)
 
         return r.json()['id']
