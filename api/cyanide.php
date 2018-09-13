@@ -5,10 +5,7 @@ if(!array_key_exists('id', $_GET)){
 
 $id = $_GET["id"];
 
-
-     
-
-$url = "http://explosm.net";
+$url = "http://explosm.net/comics/latest";
 if($id != 0){
     $url = "http://explosm.net/comics/$id";
 }
