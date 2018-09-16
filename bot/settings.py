@@ -9,6 +9,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import discord
 from discord.ext import commands
 
+import aiohttp
+
 # mongodb
 import pymongo
 
@@ -106,6 +108,38 @@ class SettingsCog:
         else:
             mongo['guilds'].update({'guild_id': guild_id}, {'$set': {'prefix': pref}})
             await ctx.channel.send(f"Prefix changed to `{pref}`")
+
+    @settings.command(name='channel', help="Changes the channel that subscribed webcomics are sent to. Use #channel to change the channel to `channel`.")
+    async def settings_channel(self, ctx, channel=None):
+        guild_id = str(ctx.guild.id)
+        if channel == None:
+            # List current channel name
+            channel_id = mongo['guilds'].find({'guild_id': guild_id}, {'_id': 0, 'comic_channel': 1}).next()['comic_channel'] # Get channel from mongodb
+            await ctx.channel.send(f"The comic chanenl is set to <#{channel_id}>")
+        else:
+            if len(ctx.message.channel_mentions) == 0:
+                await ctx.channel.send("You must specify a channel with `#channel`")
+            elif not ctx.message.channel_mentions[0].permissions_for(ctx.guild.me).manage_webhooks:
+                await ctx.channel.send("The bot does not have permission to modify webhooks for that channel")
+            else:
+                channel = ctx.message.channel_mentions[0]
+                # Check if a webhook already exists
+                webhook_url = mongo['guilds'].find({'guild_id': guild_id}).next()['comic_webhook']
+                
+                if webhook_url is not "":
+                    # Delete webhook
+                    async with aiohttp.ClientSession() as session:
+                        webhook = discord.Webhook.from_url(webhook_url, adapter=discord.AsyncWebhookAdapter(session))
+                        try:
+                            await webhook.delete()
+                        except:
+                            pass
+                
+                # Create webhook
+                webhook = await channel.create_webhook(name="Comic Bot")
+                mongo['guilds'].update({'guild_id': guild_id}, {'$set': {'comic_webhook': webhook.url, 'comic_channel': channel.id}})
+
+                await ctx.channel.send(f"Comic channel changed to <#{channel.id}>")
 
 def setup(bot):
     bot.add_cog(SettingsCog(bot))
