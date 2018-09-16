@@ -25,7 +25,9 @@ class SettingsCog:
     def __init__(self, bot):
         self.bot = bot
 
-    def has_perms(self, user, channel):
+    async def has_perms(ctx):
+        user = ctx.author
+        channel = ctx.channel
         if user.permissions_in(channel).administrator or user.id == 240039475860733952:
             return True
 
@@ -37,6 +39,7 @@ class SettingsCog:
     #
     #*******************************
     @commands.command(name='subscribe', help="Used to subscribe to new comics.")
+    @commands.check(has_perms)
     @commands.guild_only()
     async def subscribe(self, ctx, comic):
         guild_id = str(ctx.guild.id)
@@ -55,6 +58,7 @@ class SettingsCog:
     #
     #*******************************
     @commands.command(name='unsubscribe', help="Used to unsubscribe from comics.")
+    @commands.check(has_perms)
     @commands.guild_only()
     async def unsubscribe(self, ctx, comic):
         guild_id = str(ctx.guild.id)
@@ -74,6 +78,7 @@ class SettingsCog:
     #*******************************
 
     @commands.group(name='settings', help="Used to manage settings.")
+    @commands.check(has_perms)
     @commands.guild_only()
     async def settings(self, ctx):
         if ctx.invoked_subcommand is None:
