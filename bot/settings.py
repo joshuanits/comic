@@ -83,7 +83,7 @@ class SettingsCog:
     async def settings(self, ctx):
         if ctx.invoked_subcommand is None:
             # Get settings from mongodb
-            settings = dict(mongo['guilds'].find({'guild_id': str(ctx.guild.id)}, {'_id': 0, 'comic_channel': 1, 'comic_webhook': 0, 'subscribed_comics': 1, 'prefix': 1}).next())
+            settings = dict(mongo['guilds'].find({'guild_id': str(ctx.guild.id)}, {'_id': 0, 'comic_channel': 1, 'subscribed_comics': 1, 'prefix': 1}).next())
 
             settingsString = ""
 
