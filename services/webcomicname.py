@@ -20,7 +20,6 @@ except:
     print("Failed to load config. Run setup.py to create config file, if config file exists ensure it is a valid JSON")
     sys.exit()
 
-
 class WebcomicName:
     api_url = config['api_url'] + "webcomicname.php?id={0}"
     id = "webcomicname"

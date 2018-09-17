@@ -21,7 +21,6 @@ mongo = pymongo.MongoClient(f"mongodb+srv://{config['mongo_user']}:{config['mong
 
 def get_prefix(bot, message):
     prefix = mongo['guilds'].find({'guild_id': str(message.guild.id)}, {'_id': 0, 'prefix': 1}).next()['prefix'] # Get prefix from mongodb
-
     return commands.when_mentioned_or(prefix)(bot, message)
 
 bot = commands.Bot(command_prefix=get_prefix)
@@ -44,7 +43,6 @@ def add_guild(guild_id):
 async def on_ready():
     print(f"Logged in as {bot.user.name} - {bot.user.id}")
     
-
     # Check if the bot has joined any guilds since it was last launched
     for guild in bot.guilds:
         # See if guilds collection contains a collection whose guild is the guild id

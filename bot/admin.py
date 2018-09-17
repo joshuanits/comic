@@ -19,7 +19,7 @@ from config import config
 mongo = pymongo.MongoClient(f"mongodb+srv://{config['mongo_user']}:{config['mongo_pass']}@{config['mongo_host']}/test?retryWrites=true")["comics"]
 
 def is_owner(ctx):
-        return ctx.author.id == 240039475860733952
+    return ctx.author.id == 240039475860733952
 
 class AdminCog:
     def __init__(self, bot):
@@ -49,7 +49,6 @@ class AdminCog:
     @commands.check(is_owner)
     async def eval(self, ctx, arg):
         await ctx.channel.send("```" + str(eval(arg)) + "```")
-
 
 def setup(bot):
     bot.add_cog(AdminCog(bot))

@@ -20,7 +20,6 @@ except:
     print("Failed to load config. Run setup.py to create config file, if config file exists ensure it is a valid JSON")
     sys.exit()
 
-
 class XKCD:
     api_url = "https://xkcd.com/{0}/info.0.json"
     id = "xkcd"

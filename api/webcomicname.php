@@ -6,9 +6,7 @@ if(!array_key_exists('id', $_GET)){
 $config_json = file_get_contents("../config.json");
 $config = json_decode($config_json, true);
 
-
 $id = $_GET["id"];
-
 $api_key = $config['tumblr_key'];
 
 $url = "https://api.tumblr.com/v2/blog/webcomicname/posts/photo?api_key=$api_key";
@@ -25,7 +23,6 @@ if(curl_errno($ch))
     echo 'Curl error: '.curl_error($ch);
 curl_close ($ch);  
 
-header('Content-Type: application/json');
 $resp = array();
 
 try {
@@ -45,8 +42,6 @@ try {
     $resp["error"] = $ex;
 }
 
-
+header('Content-Type: application/json');
 echo json_encode($resp);
-
-
 ?>

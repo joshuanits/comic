@@ -19,7 +19,6 @@ if(curl_errno($ch))
     echo 'Curl error: '.curl_error($ch);
 curl_close ($ch);  
 
-
 $resp = array();
 
 try {
@@ -48,8 +47,6 @@ try {
         $resp['id'] = $parts[count($parts) - 2];
     }
 
-    #$resp['imgUrl'] = $doc->getElementById('main-comic')->getAttribute('src');
-
 } catch (HttpException $ex) {
     $resp["success"] = 0;
     $resp["error"] = $ex;
@@ -57,6 +54,4 @@ try {
 
 header('Content-Type: application/json');
 echo json_encode($resp);
-
-
 ?>

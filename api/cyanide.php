@@ -19,7 +19,6 @@ if(curl_errno($ch))
     echo 'Curl error: '.curl_error($ch);
 curl_close ($ch);  
 
-
 $resp = array();
 
 try {
@@ -36,6 +35,4 @@ try {
 
 header('Content-Type: application/json');
 echo json_encode($resp);
-
-
 ?>

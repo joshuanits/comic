@@ -20,7 +20,6 @@ except:
     print("Failed to load config. Run setup.py to create config file, if config file exists ensure it is a valid JSON")
     sys.exit()
 
-
 class Channelate:
     api_url = config['api_url'] + "channelate.php?id={0}"
     id = "channelate"
@@ -47,8 +46,8 @@ class Channelate:
 
         embed.set_author(name="Channelate", url="https://channelate.com")
         embed.set_image(url=data['img'].replace("http", "https"))
-
         embed.add_field(name="Bonus", value=data['bonus'].replace("http", "https"))
+
         return embed
         
 def get_object():
