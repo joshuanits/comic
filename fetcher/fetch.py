@@ -21,7 +21,7 @@ for id, service in services.items():
         if resp.count() == 0:
             # get comic
             comic = service.get_comic(id).to_dict()
-            post_data = {"content": "New comic!", "embeds":[comic]}
+            post_data = {"content": "New " + service.id + " comic!", "embeds":[comic]}
 
             for guild in mongo['guilds'].find({"subscribed_comics": service.id}):
                 requests.post(guild['comic_webhook'], headers={"Content-Type": "application/json"}, data=json.dumps(post_data))
