@@ -44,6 +44,22 @@ class SettingsCog:
         print("Settings cog loaded successfuly")
 
     #*******************************
+    # help command
+    #
+    #*******************************
+    @commands.command(name='help')
+    async def help(self, ctx):
+        embed = discord.Embed()
+        embed.title = "Comic Bot - A discord webcomic-sending bot"
+        
+        embed.description = "Need help, got a bug to report or anything else? Join the [support server](https://discord.gg/FFA9RJE)."
+        embed.add_field(name="Commands", value="A full list of commands can be found [here](https://github.com/ducky11423/comic#commands)")
+        embed.add_field(name="Getting Started", value="Need help getting started? Instructions can be found [here](https://github.com/ducky11423/comic#getting-started). If you need anymore help, please join the [support server](https://discord.gg/FFA9RJE).")
+        embed.set_footer(text="Made with love by ItsDuckyyyy#6989")
+
+        await ctx.send(embed=embed)
+
+    #*******************************
     # subscribe command
     #
     #*******************************
