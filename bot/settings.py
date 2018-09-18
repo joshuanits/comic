@@ -10,6 +10,7 @@ import discord
 from discord.ext import commands
 
 import aiohttp
+import requests
 
 # mongodb
 import pymongo
@@ -26,6 +27,12 @@ mongo = pymongo.MongoClient(f"mongodb+srv://{config['mongo_user']}:{config['mong
 class SettingsCog:
     def __init__(self, bot):
         self.bot = bot
+        self.avatar_bytes = b''
+        avatar = open(os.path.join(os.path.dirname(__file__), "avatar.png"), "rb")
+        try:
+            self.avatar_bytes = avatar.read()
+        finally:
+            avatar.close()
 
     async def has_perms(ctx):
         user = ctx.author
@@ -134,9 +141,9 @@ class SettingsCog:
                             await webhook.delete()
                         except:
                             pass
-                
+
                 # Create webhook
-                webhook = await channel.create_webhook(name="Comic Bot")
+                webhook = await channel.create_webhook(name="Comic Bot", avatar=self.avatar_bytes)
                 mongo['guilds'].update({'guild_id': guild_id}, {'$set': {'comic_webhook': webhook.url, 'comic_channel': channel.id}})
 
                 await ctx.channel.send(f"Comic channel changed to <#{channel.id}>")
