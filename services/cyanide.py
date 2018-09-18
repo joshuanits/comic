@@ -23,6 +23,7 @@ except:
 class Cyanide:
     api_url = config['api_url'] + "cyanide.php?id={0}"
     id = "cyanide"
+    name = "Cyanide and Happiness"
 
     def __init__(self):
         pass

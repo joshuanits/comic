@@ -23,6 +23,7 @@ except:
 class WebcomicName:
     api_url = config['api_url'] + "webcomicname.php?id={0}"
     id = "webcomicname"
+    name = "webcomic name"
 
     def __init__(self):
         pass

@@ -24,6 +24,7 @@ except:
 class Garfield:
     api_url = config['api_url'] + "garfield.php?id={0}"
     id = "garfield"
+    name = "Garfield"
 
     def __init__(self):
         pass

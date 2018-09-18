@@ -15,13 +15,17 @@ mongo = pymongo.MongoClient(f"mongodb+srv://{config['mongo_user']}:{config['mong
 
 # loop through all services, checking if there is a new comic
 for id, service in services.items():
+    print(f"Fetching comic {service.id}")
     try:
         id = service.get_latest_id()
         resp = mongo['latest'].find({"comic_id": service.id, "latest_id": id})
         if resp.count() == 0:
+            print(f"Found new {service.id} comic")
             # get comic
             comic = service.get_comic(id).to_dict()
-            post_data = {"content": "New " + service.id + " comic!", "embeds":[comic]}
+            print(comic)
+            assert comic['image']['url'] is not None and comic['image']['url'] is not "", "Img link not found" 
+            post_data = {"content": "New " + service.name + " comic!", "embeds":[comic]}
 
             for guild in mongo['guilds'].find({"subscribed_comics": service.id}):
                 requests.post(guild['comic_webhook'], headers={"Content-Type": "application/json"}, data=json.dumps(post_data))

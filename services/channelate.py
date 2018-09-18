@@ -23,6 +23,7 @@ except:
 class Channelate:
     api_url = config['api_url'] + "channelate.php?id={0}"
     id = "channelate"
+    name = "Channelate"
 
     def __init__(self):
         pass

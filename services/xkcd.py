@@ -23,7 +23,8 @@ except:
 class XKCD:
     api_url = "https://xkcd.com/{0}/info.0.json"
     id = "xkcd"
-
+    name = "xkcd"
+    
     def __init__(self):
         pass
 
