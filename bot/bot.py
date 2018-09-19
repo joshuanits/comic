@@ -9,6 +9,9 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 # discord imports
 import discord
 from discord.ext import commands
+import asyncio
+
+import requests
 
 # mongodb
 import pymongo
@@ -42,7 +45,7 @@ def add_guild(guild_id):
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user.name} - {bot.user.id}")
-    
+    update_guild_count()
     # Check if the bot has joined any guilds since it was last launched
     for guild in bot.guilds:
         # See if guilds collection contains a collection whose guild is the guild id
@@ -57,6 +60,15 @@ async def on_guild_join(guild):
     guild_id = str(guild.id)
     if mongo['guilds'].count_documents({'guild_id': guild_id}) == 0:
         add_guild(guild_id)
+    
+    update_guild_count()
+
+@bot.event
+async def on_guild_remove(guild):
+    update_guild_count()
+
+def update_guild_count():
+    requests.post(url=f"https://discordbots.org/api/bots/{bot.user.id}/stats", headers={'Authorization': config['discord_bots_token']}, data={'server_count': len(bot.guilds)})
 
 if __name__ == "__main__":
     bot.remove_command("help")

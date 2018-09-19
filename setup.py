@@ -4,6 +4,7 @@ import json
 config = {}
 config['api_url'] = "localhost"
 config['bot_token'] = "BOT_TOKEN"
+config['discord_bots_token'] = "TOKEN"
 config['error_webhook'] = "ERROR_WEBHOOK"
 config['mongo_host'] = "MONGO_HOST"
 config['mongo_user'] = "MONGO_USER"
