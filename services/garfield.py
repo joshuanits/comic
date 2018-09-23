@@ -4,22 +4,14 @@
 import json
 import os
 import sys
-from datetime import date
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 # web imports
 import requests
 import discord
 
-# load config
-config = {}
-
-try:
-    f = open(os.path.dirname(os.path.realpath(__file__)) + "/../config.json", 'r')
-    config = json.load(f)
-    f.close()
-except:
-    print("Failed to load config. Run setup.py to create config file, if config file exists ensure it is a valid JSON")
-    sys.exit()
+from config import config
+from util import errors
 
 class Garfield:
     api_url = config['api_url'] + "garfield.php?id={0}"
