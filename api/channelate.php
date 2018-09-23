@@ -6,14 +6,20 @@ if(!array_key_exists('id', $_GET)){
 $id = $_GET["id"];
 
 $url = "http://www.channelate.com";
+
 if($id != 0){
     $url = "http://www.channelate.com/comic/$id";
+}
+
+if($id == "random"){
+    $url = "http://www.channelate.com/?random&nocache=1";
 }
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_HEADER, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
 try {
     $response = curl_exec($ch);
@@ -28,10 +34,19 @@ try {
     $doc = new DOMDocument();
     $doc->loadHTML($response);
 
-    $headerTags = $doc->getElementsByTagName('h2');
-    $header = $headerTags[0];
-    if($header->getAttribute('class') == "post-title") {
-        $resp['link'] = $header->firstChild->getAttribute('href');
+    if($id === "0") {
+        $headerTags = $doc->getElementsByTagName('h2');
+        $header = $headerTags[0];
+        if($header->getAttribute('class') == "post-title") {
+            $resp['link'] = $header->firstChild->getAttribute('href');
+        }
+    } else {
+        $linkTags = $doc->getElementsByTagName('link');
+        foreach($linkTags as $link){
+            if($link->getAttribute('rel') == "canonical") {
+                $resp['link'] = $link->getAttribute('href');
+            }
+        }
     }
 
     $spanTags = $doc->getElementsByTagName('span');

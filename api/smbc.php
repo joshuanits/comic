@@ -5,14 +5,10 @@ if(!array_key_exists('id', $_GET)){
 
 $id = $_GET["id"];
 
-$url = "http://explosm.net/comics/latest";
+$url = "https://www.smbc-comics.com/";
 
 if($id != "0"){
-    $url = "http://explosm.net/comics/$id";
-}
-
-if($id == "random"){
-    $url = "http://explosm.net/comics/random";
+    $url = "https://www.smbc-comics.com/comic/$id";
 }
 
 $ch = curl_init();
@@ -25,7 +21,7 @@ try {
     $response = curl_exec($ch);
     if(curl_errno($ch))
         throw new Exception(curl_error($ch));
-    if(curl_getinfo($ch)['http_code'] == 404)
+    if(strpos($response, "There is no comic with this ID."))
         throw new Exception("not_found");
     curl_close ($ch);  
     
@@ -34,10 +30,11 @@ try {
     $doc = new DOMDocument();
     $doc->loadHTML($response);
 
-    $resp['id'] = $doc->getElementById('comic-social-favorite')->getAttribute('data-id');
-    $resp['img'] = $doc->getElementById('main-comic')->getAttribute('src');
-    $id = $resp['id'];
-    $resp['link'] = "explosm.net/comics/$id";
+    $resp['link'] = $doc->getElementById('permalinktext')->getAttribute('value');
+    $resp['id'] = explode("/", $resp['link'])[4];
+    $resp['img'] = $doc->getElementById('cc-comic')->getAttribute('src');
+    $resp['bonus'] = $doc->getElementById('aftercomic')->firstChild->getAttribute('src');
+    $resp['title'] = $doc->getElementById('cc-comic')->getAttribute('title');
 
     $resp['success'] = 1;
 
