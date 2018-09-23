@@ -22,7 +22,6 @@ class XKCD:
         pass
 
     def get_latest_id(self):
-
         url = "https://xkcd.com/info.0.json"
         r = requests.get(url)
 
@@ -32,6 +31,9 @@ class XKCD:
         url = self.api_url.replace("{0}", str(id))
         r = requests.get(url)
     
+        if r.status_code == 404:
+            raise(errors.ComicNotFound(self.id, id))
+
         return self.format_embed(r.json())
 
     def format_embed(self, data):

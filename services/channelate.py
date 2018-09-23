@@ -31,6 +31,12 @@ class Channelate:
         url = self.api_url.replace("{0}", str(id))
         r = requests.get(url)
     
+        data = r.json()
+
+        if data['success'] == 0:
+            if data['error'] == "not_found":
+                raise(errors.ComicNotFound(self.id, id))
+
         return self.format_embed(r.json())
 
     def format_embed(self, data):

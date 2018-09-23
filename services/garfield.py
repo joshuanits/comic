@@ -10,6 +10,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 import requests
 import discord
 
+from datetime import date
 from config import config
 from util import errors
 
@@ -31,6 +32,12 @@ class Garfield:
         url = self.api_url.replace("{0}", str(id))
         r = requests.get(url)
     
+        data = r.json()
+
+        if data['success'] == 0:
+            if data['error'] == "not_found":
+                raise(errors.ComicNotFound(self.id, id))
+
         return self.format_embed(r.json())
 
     def format_embed(self, data):
