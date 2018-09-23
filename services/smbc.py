@@ -48,7 +48,6 @@ class SMBC:
         embed.set_author(name=self.name, url="https://www.smbc-comics.com")
         embed.set_image(url=data['img'])
         embed.add_field(name="Bonus", value=data['bonus'])
-        print(str(embed.to_dict()).replace("\'", "\""))
         return embed
         
 def get_object():
