@@ -46,7 +46,7 @@ class Channelate:
 
         embed.set_author(name="Channelate", url="https://channelate.com")
         embed.set_image(url=data['img'].replace("http", "https"))
-        embed.add_field(name="Bonus", value=data['bonus'].replace("http", "https"))
+        embed.add_field(name="Bonus", value=data['bonus'].replace("http", "http"))
 
         return embed
         
