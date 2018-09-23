@@ -7,21 +7,24 @@ $id = $_GET["id"];
 
 $url = "http://www.channelate.com";
 if($id != 0){
-    $url = "http://channelate.com/comic/$id";
+    $url = "http://www.channelate.com/comic/$id";
 }
 
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_URL, $url);
 curl_setopt($ch, CURLOPT_HEADER, true);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-$response = curl_exec($ch);
-if(curl_errno($ch))
-    echo 'Curl error: '.curl_error($ch);
-curl_close ($ch);  
-
-$resp = array();
 
 try {
+    $response = curl_exec($ch);
+    if(curl_errno($ch))
+        throw new Exception(curl_error($ch));
+    if(curl_getinfo($ch)['http_code'] == 404)
+        throw new Exception("not_found");
+    curl_close ($ch);  
+    
+    $resp = array();
+
     $doc = new DOMDocument();
     $doc->loadHTML($response);
 
@@ -47,9 +50,14 @@ try {
         $resp['id'] = $parts[count($parts) - 2];
     }
 
+    $resp['success'] = 1;
+
 } catch (HttpException $ex) {
     $resp["success"] = 0;
     $resp["error"] = $ex;
+} catch (Exception $ex) {
+    $resp["success"] = 0;
+    $resp["error"] = $ex->getMessage();
 }
 
 header('Content-Type: application/json');
