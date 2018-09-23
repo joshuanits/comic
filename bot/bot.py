@@ -73,5 +73,6 @@ def update_guild_count():
 if __name__ == "__main__":
     bot.remove_command("help")
     bot.load_extension("admin")
+    bot.load_extension("comic")
     bot.load_extension("settings")
     bot.run(config['bot_token'], bot=True)
