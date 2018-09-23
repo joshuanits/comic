@@ -19,7 +19,7 @@ try {
     $response = curl_exec($ch);
     if(curl_errno($ch))
         throw new Exception(curl_error($ch));
-    if(curl_getinfo($ch)['http_code'] == 404)
+    if(curl_getinfo($ch)['http_code'] == 404 || curl_getinfo($ch)['http_code'] == 301)
         throw new Exception("not_found");
     curl_close ($ch);  
     
