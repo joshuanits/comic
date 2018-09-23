@@ -32,7 +32,7 @@ try {
 
     $resp['link'] = $doc->getElementById('permalinktext')->getAttribute('value');
     $resp['id'] = explode("/", $resp['link'])[4];
-    $resp['img'] = $doc->getElementById('cc-comic')->getAttribute('src');
+    $resp['img'] = str_replace(" ", "%20", $doc->getElementById('cc-comic')->getAttribute('src'));
     $resp['bonus'] = $doc->getElementById('aftercomic')->firstChild->getAttribute('src');
     $resp['title'] = $doc->getElementById('cc-comic')->getAttribute('title');
 
