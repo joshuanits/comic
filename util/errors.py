@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class UknownWebcomic(commands.CommandError):
+class UnknownWebcomic(commands.CommandError):
     def __init__(self, webcomic_id, *args, **kwargs):
         self.webcomic_id = webcomic_id
         super().__init__(*args, **kwargs)
