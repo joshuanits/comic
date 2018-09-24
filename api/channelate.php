@@ -41,12 +41,7 @@ try {
             $resp['link'] = $header->firstChild->getAttribute('href');
         }
     } else {
-        $linkTags = $doc->getElementsByTagName('link');
-        foreach($linkTags as $link){
-            if($link->getAttribute('rel') == "canonical") {
-                $resp['link'] = $link->getAttribute('href');
-            }
-        }
+        $resp['link'] = "http://www.channelate.com/comic/$id";
     }
 
     $spanTags = $doc->getElementsByTagName('span');
