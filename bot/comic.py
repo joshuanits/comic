@@ -51,6 +51,16 @@ class ComicCog:
             await ctx.send(f"There is no webcomic with id `{error.webcomic_id}` (a list of supported id's can be found here: <https://github.com/ducky11423/comic#supported-webcomics>).")
         elif isinstance(error, errors.ComicNotFound):
             await ctx.send(f"Could not find comic with id `{error.comic_id}` for `{error.webcomic_id}`.")
+        else:
+            await ctx.send(f"Something went wrong.")
+
+            if config['error_webhook'] is not "ERROR_WEBHOOK":
+                webhook_content = f"```\n{error.message}"
+                
+                webhook_content += error.__name__ + " when trying to fetch " + service.id + "\n```"
+                payload = {"content": webhook_content}
+
+                requests.post(config['error_webhook'], headers={"Content-Type": "application/json"}, data=json.dumps(payload))
             
 
 def setup(bot):
