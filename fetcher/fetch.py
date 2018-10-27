@@ -28,7 +28,8 @@ for id, service in services.items():
             post_data = {"content": "New " + service.name + " comic!", "embeds":[comic]}
 
             for guild in mongo['guilds'].find({"subscribed_comics": service.id}):
-                requests.post(guild['comic_webhook'], headers={"Content-Type": "application/json"}, data=json.dumps(post_data))
+                if(guild['comic_webhook'] is not ''):
+                    requests.post(guild['comic_webhook'], headers={"Content-Type": "application/json"}, data=json.dumps(post_data))
 
             if mongo['latest'].find({"comic_id": service.id}).count() == 0:
                 mongo['latest'].insert({"comic_id": service.id, "latest_id": id})
