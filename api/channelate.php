@@ -7,7 +7,7 @@ $id = $_GET["id"];
 
 $url = "http://www.channelate.com";
 
-if($id != 0){
+if($id != "0"){
     $url = "http://www.channelate.com/comic/$id";
 }
 
@@ -41,7 +41,7 @@ try {
             $resp['link'] = $header->firstChild->getAttribute('href');
         }
     } else {
-        $resp['link'] = "http://www.channelate.com/comic/$id";
+        $resp['link'] = $url . "/";
     }
 
     $spanTags = $doc->getElementsByTagName('span');
@@ -53,7 +53,10 @@ try {
     }
     
     $bonusdiv = $doc->getElementById('extrapanelbutton');
-    $resp['bonus'] = $bonusdiv->childNodes[1]->getAttribute('href');
+    if($bonusdiv != NULL) {
+        $resp['bonus'] = $bonusdiv->childNodes[1]->getAttribute('href');
+    }
+        
 
     if(array_key_exists('link', $resp)){
         $parts = explode("/", $resp['link']);
