@@ -12,6 +12,8 @@ At its core, Comic Bot acts as the comic section of a newspaper. You can subscri
 * [Saturday Morning Breakfast Cereal](https://smbc-comics.com) - id: `smbc`
 * [webcomic name](http://webcomicname.com/) - id: `webcomicname`
 * [xkcd](http://xkcd.com/) - id: `xkcd`
+* [Wilde Life](http://wildelifecomic.com/) - id: `wildelife`
+* [White Noise](http://www.white-noise-comic.com/) - id: `whitenoise`
 
 ## Getting started
 Using the bot is simple. By default the bot uses `,` as its prefix. After inviting the bot to your server, set the channel which you want the webcomics sent to using the `settings channel #chan` command. You must tag the channel (the `#chan` must become a link). For instance, if you wanted comics to be sent to a channel called *comics* you would write `,settings channel #chan`. Then simply subscribe to webcomic(s) using the `subscribe id` command. IDs for supported webcomics can be found [here](#supported-webcomics). To unsubscribe from a comic, simply use `unsubscribe id`. 
