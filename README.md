@@ -10,6 +10,7 @@ At its core, Comic Bot acts as the comic section of a newspaper. You can subscri
 * [Cyanide and Happiness](http://explosm.net/) - id: `cyanide`
 * [Garfield](https://garfield.com/) - id: `garfield`
 * [Saturday Morning Breakfast Cereal](https://smbc-comics.com) - id: `smbc`
+* [Swords](https://swordscomic.com/) - id: `swords`
 * [webcomic name](http://webcomicname.com/) - id: `webcomicname`
 * [xkcd](http://xkcd.com/) - id: `xkcd`
 * [Wilde Life](http://wildelifecomic.com/) - id: `wildelife`
