@@ -8,6 +8,7 @@ At its core, Comic Bot acts as the comic section of a newspaper. You can subscri
 ## Supported webcomics
 * [Channelate](http://channelate.com/) - id: `channelate`
 * [Cyanide and Happiness](http://explosm.net/) - id: `cyanide`
+* [Extra Ordinary](https://exocomics.com/) - id: `exo`
 * [Garfield](https://garfield.com/) - id: `garfield`
 * [Saturday Morning Breakfast Cereal](https://smbc-comics.com) - id: `smbc`
 * [Swords](https://swordscomic.com/) - id: `swords`
