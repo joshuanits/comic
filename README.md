@@ -10,6 +10,7 @@ At its core, Comic Bot acts as the comic section of a newspaper. You can subscri
 * [Cyanide and Happiness](http://explosm.net/) - id: `cyanide`
 * [Extra Ordinary](https://exocomics.com/) - id: `exo`
 * [Garfield](https://garfield.com/) - id: `garfield`
+* [Poorly Drawn Lines](http://poorlydrawnlines.com/) - id: `poorly`
 * [Saturday Morning Breakfast Cereal](https://smbc-comics.com) - id: `smbc`
 * [Swords](https://swordscomic.com/) - id: `swords`
 * [webcomic name](http://webcomicname.com/) - id: `webcomicname`
