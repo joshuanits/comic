@@ -30,7 +30,10 @@ try {
     $doc = new DOMDocument();
     $doc->loadHTML($response);
 
-    $img = $doc->getElementsByTagName('p')[1]->firstChild;
+    $finder = new DomXPath($doc);
+    $nodes = $finder->query("//figure[@class='wp-block-image']");
+
+    $img = $nodes[0]->firstChild;
 
     $resp['img'] = $img->getAttribute('src');
     $img_parts = explode("/", $resp['img']);
