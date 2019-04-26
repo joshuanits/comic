@@ -36,12 +36,15 @@ try {
     $img = $nodes[0]->firstChild;
 
     $resp['img'] = $img->getAttribute('src');
-    $img_parts = explode("/", $resp['img']);
-    $img_file = $img_parts[count($img_parts)-1];
-    $id = substr($img_file, 0, strlen($img_file)-4);
+    
+    $link = substr($response, strpos($response, "var disqus_url"));
+    $link = substr($link, strpos($link, "'") + 1);
+    $link = substr($link, 0, strpos($link, "'"));
 
-    $resp['id'] = $id;
-    $resp['link'] = "http://www.poorlydrawnlines.com/comic/$id";
+    $link_parts = explode("/", $link);
+
+    $resp['id'] = $link_parts[count($link_parts) - 2];
+    $resp['link'] = $link;
     $resp['success'] = 1;
 
 } catch (HttpException $ex) {
