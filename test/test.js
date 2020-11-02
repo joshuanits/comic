@@ -4,6 +4,7 @@ const expect = require('chai').expect;
 const BaseComic = require('../src/comics/base');
 const ChannelateComic = require('../src/comics/channelate');
 const CyanideComic = require('../src/comics/cyanide');
+const ExoComic = require('../src/comics/exo');
 
 describe('BaseComic', function() {
     describe('#getComicWithId', function() {
@@ -90,6 +91,41 @@ describe('CyanideComic', function() {
         context('fetching latest', async function() {
             it('shouldn\'t be empty', function(done) {
                 CyanideComic.getComicWithId('latest').then(function(comic) {
+                    expect(comic.id).not.equal('');
+                    expect(comic.name).not.equal('');
+                    expect(comic.url).not.equal('');
+                    expect(comic.imageUrl).not.equal('');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+    });
+});
+
+describe('ExoComic', function() {
+    this.timeout(5000);
+    describe('#getComicWithId', function() {
+        context('with valid id', async function() {
+            it('should return a comic', function(done) {
+                ExoComic.getComicWithId('635').then(function(comic) {
+                    expect(comic.id).to.equal('635');
+                    expect(comic.name).to.equal('DAMNIT BUNS YOU HAD ONE JOB');
+                    expect(comic.url).to.equal('https://www.exocomics.com/635');
+                    expect(comic.imageUrl).to.contain('https://www.exocomics.com/wp-content/uploads/635.jpg');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+
+        context('fetching latest', async function() {
+            it('shouldn\'t be empty', function(done) {
+                ExoComic.getComicWithId('latest').then(function(comic) {
                     expect(comic.id).not.equal('');
                     expect(comic.name).not.equal('');
                     expect(comic.url).not.equal('');
