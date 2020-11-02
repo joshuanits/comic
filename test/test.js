@@ -3,6 +3,7 @@ const expect = require('chai').expect;
 
 const BaseComic = require('../src/comics/base');
 const ChannelateComic = require('../src/comics/channelate');
+const CyanideComic = require('../src/comics/cyanide');
 
 describe('BaseComic', function() {
     describe('#getComicWithId', function() {
@@ -54,6 +55,41 @@ describe('ChannelateComic', function() {
         context('fetching latest', async function() {
             it('shouldn\'t be empty', function(done) {
                 ChannelateComic.getComicWithId('latest').then(function(comic) {
+                    expect(comic.id).not.equal('');
+                    expect(comic.name).not.equal('');
+                    expect(comic.url).not.equal('');
+                    expect(comic.imageUrl).not.equal('');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+    });
+});
+
+describe('CyanideComic', function() {
+    this.timeout(5000);
+    describe('#getComicWithId', function() {
+        context('with valid id', async function() {
+            it('should return a comic', function(done) {
+                CyanideComic.getComicWithId('5705').then(function(comic) {
+                    expect(comic.id).to.equal('5705');
+                    expect(comic.name).to.equal('\n2020.11.02\nby Rob DenBleyker\n');
+                    expect(comic.url).to.equal('https://explosm.net/comics/5705');
+                    expect(comic.imageUrl).to.contain('//files.explosm.net/comics/Rob/cleanbill.png');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+
+        context('fetching latest', async function() {
+            it('shouldn\'t be empty', function(done) {
+                CyanideComic.getComicWithId('latest').then(function(comic) {
                     expect(comic.id).not.equal('');
                     expect(comic.name).not.equal('');
                     expect(comic.url).not.equal('');
