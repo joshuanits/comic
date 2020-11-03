@@ -9,6 +9,7 @@ const SMBCComic = require('../src/comics/smbc');
 const SwordsComic = require('../src/comics/swords');
 const WhiteNoiseComic = require('../src/comics/whitenoise');
 const WildelifeComic = require('../src/comics/wildelife');
+const XKCDComic = require('../src/comics/xkcd');
 
 describe('BaseComic', function() {
     describe('#getComicWithId', function() {
@@ -270,6 +271,41 @@ describe('White Noise', function() {
         context('fetching latest', async function() {
             it('shouldn\'t be empty', function(done) {
                 WhiteNoiseComic.getComicWithId('latest').then(function(comic) {
+                    expect(comic.id).not.equal('');
+                    expect(comic.name).not.equal('');
+                    expect(comic.url).not.equal('');
+                    expect(comic.imageUrl).not.equal('');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+    });
+});
+
+describe('xkcd', function() {
+    this.timeout(5000);
+    describe('#getComicWithId', function() {
+        context('with valid id', async function() {
+            it('should return a comic', function(done) {
+                XKCDComic.getComicWithId('2379').then(function(comic) {
+                    expect(comic.id).to.equal('2379');
+                    expect(comic.name).to.equal('Probability Comparisons');
+                    expect(comic.url).to.equal('https://xkcd.com/2379');
+                    expect(comic.imageUrl).to.equal('https://imgs.xkcd.com/comics/probability_comparisons.png');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+
+        context('fetching latest', async function() {
+            it('shouldn\'t be empty', function(done) {
+                XKCDComic.getComicWithId('latest').then(function(comic) {
                     expect(comic.id).not.equal('');
                     expect(comic.name).not.equal('');
                     expect(comic.url).not.equal('');
