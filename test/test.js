@@ -84,7 +84,7 @@ describe('CyanideComic', function() {
                     expect(comic.id).to.equal('5705');
                     expect(comic.name).to.equal('\n2020.11.02\nby Rob DenBleyker\n');
                     expect(comic.url).to.equal('https://explosm.net/comics/5705');
-                    expect(comic.imageUrl).to.contain('//files.explosm.net/comics/Rob/cleanbill.png');
+                    expect(comic.imageUrl).to.contain('https://files.explosm.net/comics/Rob/cleanbill.png');
 
                     done();
                 }).catch(function(error) {

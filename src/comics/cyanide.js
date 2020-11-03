@@ -39,7 +39,7 @@ class CyanideComic extends BaseComic {
                         const imageNode = select('//*[@id=\'main-comic\']', doc)[0];
 
                         // Image url
-                        comic.imageUrl = imageNode.getAttribute('src');
+                        comic.imageUrl = 'https:' + imageNode.getAttribute('src');
 
                         const authorNode = select('//*[@id=\'comic-author\']', doc)[0];
 
