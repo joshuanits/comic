@@ -41,11 +41,12 @@ class ExoComic extends BaseComic {
                         // Image url
                         comic.imageUrl = imageNode.getAttribute('src');
 
-                        // Comic title
-                        comic.name = imageNode.getAttribute('title');
-
                         // Comic id
                         comic.id = imageNode.getAttribute('alt');
+
+                        // Comic title
+                        const title = imageNode.getAttribute('title');
+                        comic.name = title == '' ? comic.id : title;
 
                         // Comic url
                         comic.url = siteUrl + comic.id;
