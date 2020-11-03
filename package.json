@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "pretest": "eslint --ignore-path .gitignore . ",
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
