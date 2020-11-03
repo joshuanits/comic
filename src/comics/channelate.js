@@ -36,7 +36,7 @@ class ChannelateComic extends BaseComic {
                         // Fetch comic data from response
                         const doc = new DOMParser({ errorHandler: { warning: null } }).parseFromString(response.data);
                         const select = xpath.useNamespaces({ 'html': 'http://www.w3.org/1999/xhtml' });
-                        const imageNode = select('//html:span[@class=\'comic-square\']/html:img', doc)[0];
+                        const imageNode = select('//*[@id=\'comic\']/html:span/html:img', doc)[0];
 
                         // Image url
                         comic.imageUrl = imageNode.getAttribute('src');

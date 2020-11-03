@@ -58,6 +58,22 @@ describe('ChannelateComic', function() {
             });
         });
 
+        context('wide comic', async function() {
+            it('should return a comic', function(done) {
+                ChannelateComic.getComicWithId('oh-no-4').then(function(comic) {
+                    expect(comic.id).to.equal('oh-no-4');
+                    expect(comic.name).to.equal('Oh no.');
+                    expect(comic.url).to.equal('https://www.channelate.com/comics/oh-no-4');
+                    expect(comic.imageUrl).to.equal('https://www.channelate.com/wp-content/uploads/2020/05/2020-05-18-oh-no.png');
+                    expect(comic.bonusUrl).to.equal('https://www.channelate.com/extra-panel/20200520/');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+
         context('fetching latest', async function() {
             it('shouldn\'t be empty', function(done) {
                 ChannelateComic.getComicWithId('latest').then(function(comic) {
