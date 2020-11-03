@@ -22,8 +22,8 @@ client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}! (${client.user.id})`);
 });
 
-client.on('error', error => {
-    console.log(error);
+process.on('unhandledRejection', error => {
+    console.error('Unhandled promise rejection:', error);
 });
 
 client.login(config.token);
