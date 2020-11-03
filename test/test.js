@@ -7,6 +7,7 @@ const CyanideComic = require('../src/comics/cyanide');
 const ExoComic = require('../src/comics/exo');
 const SMBCComic = require('../src/comics/smbc');
 const SwordsComic = require('../src/comics/swords');
+const WildelifeComic = require('../src/comics/wildelife');
 
 describe('BaseComic', function() {
     describe('#getComicWithId', function() {
@@ -198,6 +199,41 @@ describe('SwordsComic', function() {
         context('fetching latest', async function() {
             it('shouldn\'t be empty', function(done) {
                 SwordsComic.getComicWithId('latest').then(function(comic) {
+                    expect(comic.id).not.equal('');
+                    expect(comic.name).not.equal('');
+                    expect(comic.url).not.equal('');
+                    expect(comic.imageUrl).not.equal('');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+    });
+});
+
+describe('Wildelife', function() {
+    this.timeout(5000);
+    describe('#getComicWithId', function() {
+        context('with valid id', async function() {
+            it('should return a comic', function(done) {
+                WildelifeComic.getComicWithId('849').then(function(comic) {
+                    expect(comic.id).to.equal('849');
+                    expect(comic.name).to.equal('challenge accepted');
+                    expect(comic.url).to.equal('https://www.wildelifecomic.com/comic/849');
+                    expect(comic.imageUrl).to.equal('https://www.wildelifecomic.com/comics/1604033075-849.png');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+
+        context('fetching latest', async function() {
+            it('shouldn\'t be empty', function(done) {
+                WildelifeComic.getComicWithId('latest').then(function(comic) {
                     expect(comic.id).not.equal('');
                     expect(comic.name).not.equal('');
                     expect(comic.url).not.equal('');
