@@ -24,9 +24,9 @@ module.exports = class ComicCommand extends Command {
         });
     }
 
-    run(message, {webcomic_id, comic_id}) {
+    run(message, { webcomic_id, comic_id }) {
         GetComicEmbed(webcomic_id, comic_id).then(function(embed) {
             message.embed(embed);
         });
     }
-}
+};
