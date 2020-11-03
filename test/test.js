@@ -7,6 +7,7 @@ const CyanideComic = require('../src/comics/cyanide');
 const ExoComic = require('../src/comics/exo');
 const SMBCComic = require('../src/comics/smbc');
 const SwordsComic = require('../src/comics/swords');
+const WhiteNoiseComic = require('../src/comics/whitenoise');
 const WildelifeComic = require('../src/comics/wildelife');
 
 describe('BaseComic', function() {
@@ -234,6 +235,41 @@ describe('Wildelife', function() {
         context('fetching latest', async function() {
             it('shouldn\'t be empty', function(done) {
                 WildelifeComic.getComicWithId('latest').then(function(comic) {
+                    expect(comic.id).not.equal('');
+                    expect(comic.name).not.equal('');
+                    expect(comic.url).not.equal('');
+                    expect(comic.imageUrl).not.equal('');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+    });
+});
+
+describe('White Noise', function() {
+    this.timeout(5000);
+    describe('#getComicWithId', function() {
+        context('with valid id', async function() {
+            it('should return a comic', function(done) {
+                WhiteNoiseComic.getComicWithId('2020-interlude-3').then(function(comic) {
+                    expect(comic.id).to.equal('2020-interlude-3');
+                    expect(comic.name).to.equal('Post-chapter interlude #3');
+                    expect(comic.url).to.equal('http://www.white-noise-comic.com/comic/2020-interlude-3');
+                    expect(comic.imageUrl).to.equal('http://www.white-noise-comic.com/comics/1603648033-Untitled_Artwork 9 resized.jpg');
+
+                    done();
+                }).catch(function(error) {
+                    done(error);
+                });
+            });
+        });
+
+        context('fetching latest', async function() {
+            it('shouldn\'t be empty', function(done) {
+                WhiteNoiseComic.getComicWithId('latest').then(function(comic) {
                     expect(comic.id).not.equal('');
                     expect(comic.name).not.equal('');
                     expect(comic.url).not.equal('');
