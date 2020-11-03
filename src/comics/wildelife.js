@@ -54,7 +54,7 @@ class WildelifeComic extends BaseComic {
                         }
 
                         // Comic url
-                        comic.url = `${siteUrl}comic/${id}`;
+                        comic.url = `${siteUrl}comic/${comic.id}`;
 
                         // Comic id
                         comic.id = comic.url.split('/').slice(-1)[0];
