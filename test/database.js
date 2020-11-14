@@ -80,4 +80,52 @@ describe('Database testing', function() {
             });
         });
     });
+
+    // comics
+
+    describe('#GetComicInfoAll', function() {
+        context('after clearing', function() {
+            it('should return an empty array', function(done) {
+                Database.GetComicInfoAll().then(function(val) {
+                    expect(val.length).to.equal(0);
+                    done();
+                });
+            });
+        });
+    });
+
+    describe('#AddComicInfo', function() {
+        it('should add comic info', function(done) {
+            Database.AddComicInfo('testcomic').then(function(val) {
+                expect(val.result.ok).to.equal(1);
+                done();
+            });
+        });
+    });
+
+    describe('#GetComicInfo', function() {
+        it('should return a guild info', function(done) {
+            Database.GetComicInfo('testcomic').then(function(val) {
+                expect(val.comic_id).to.equal('testcomic');
+                done();
+            });
+        });
+    });
+
+    describe('#ModifyComicInfo', function() {
+        it('should modify comic info', function(done) {
+            Database.ModifyComicInfo('testcomic', {
+                latest_id: '123',
+            }).then(function(val) {
+                expect(val.ok).to.equal(1);
+                return Database.GetComicInfo('testcomic');
+            }).then(function(val) {
+                expect(val).to.containSubset({
+                    comic_id: 'testcomic',
+                    latest_id: '123',
+                });
+                done();
+            });
+        });
+    });
 });

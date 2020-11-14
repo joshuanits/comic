@@ -5,6 +5,17 @@ const data = {
     db: undefined,
 };
 
+function AddComicInfo(comicId) {
+    if(data.db == undefined) {
+        throw(Error('not connected to database'));
+    }
+
+    return data.db.collection('comics').insertOne({
+        comic_id: comicId,
+        latest_id: '',
+    });
+}
+
 function AddGuildInfo(guildId) {
     if(data.db == undefined) {
         throw(Error('not connected to database'));
@@ -40,6 +51,22 @@ function ConnectDatabse(connectUri, db) {
     });
 }
 
+function GetComicInfo(comicId) {
+    if(data.db == undefined) {
+        throw(Error('not connected to database'));
+    }
+
+    return data.db.collection('comics').findOne({ 'comic_id': comicId });
+}
+
+function GetComicInfoAll() {
+    if(data.db == undefined) {
+        throw(Error('not connected to database'));
+    }
+
+    return data.db.collection('comics').find().toArray();
+}
+
 function GetGuildInfo(guildId) {
     if(data.db == undefined) {
         throw(Error('not connected to database'));
@@ -60,6 +87,14 @@ function IsConnected() {
     return data.client.isConnected();
 }
 
+function ModifyComicInfo(comicId, props) {
+    if(data.db == undefined) {
+        throw(Error('not connected to database'));
+    }
+
+    return data.db.collection('comics').findOneAndUpdate({ 'comic_id': comicId }, { $set: props });
+}
+
 function ModifyGuildInfo(guildId, props) {
     if(data.db == undefined) {
         throw(Error('not connected to database'));
@@ -69,11 +104,15 @@ function ModifyGuildInfo(guildId, props) {
 }
 
 module.exports = {
+    AddComicInfo,
     AddGuildInfo,
     ClearCollection,
     ConnectDatabse,
+    GetComicInfo,
+    GetComicInfoAll,
     GetGuildInfo,
     GetGuildInfoAll,
     IsConnected,
+    ModifyComicInfo,
     ModifyGuildInfo,
 };
