@@ -83,6 +83,14 @@ function GetGuildInfoAll() {
     return data.db.collection('guilds').find().toArray();
 }
 
+function GetGuildsSubscribedTo(comicId) {
+    if(data.db == undefined) {
+        throw(Error('not connected to database'));
+    }
+
+    return data.db.collection('guilds').find({ subscribed_comics: comicId }).toArray();
+}
+
 function IsConnected() {
     return data.client.isConnected();
 }
@@ -128,6 +136,7 @@ module.exports = {
     GetComicInfoAll,
     GetGuildInfo,
     GetGuildInfoAll,
+    GetGuildsSubscribedTo,
     IsConnected,
     ModifyComicInfo,
     ModifyGuildInfo,

@@ -1,6 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { GetWebcomic } = require('../../comics/comics');
-const { UnsubscribeComic, GetGuildInfo, ModifyGuildInfo } = require('../../database');
+const { GetGuildInfo, ModifyGuildInfo } = require('../../database');
 const { hasPerms } = require('../../utility/botUtils');
 
 module.exports = class UnsubscribeCommand extends Command {
@@ -40,7 +39,7 @@ module.exports = class UnsubscribeCommand extends Command {
             return;
         }
 
-        await ModifyGuildInfo(message.guild.id, {comic_channel: mentions[0][0] });
+        await ModifyGuildInfo(message.guild.id, { comic_channel: mentions[0][0] });
         message.channel.send(`Set comic channel to <#${mentions[0][0]}>`);
 
     }

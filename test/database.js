@@ -81,6 +81,15 @@ describe('Database testing', function() {
         });
     });
 
+    describe('$GetGuildsSubscribedTo', function() {
+        it('should return the guild', function(done) {
+            Database.GetGuildsSubscribedTo('test').then(function(val) {
+                expect(val[0].guild_id).to.equal('12345678');
+                done();
+            });
+        });
+    });
+
     describe('#SubscribeComic', function() {
         it('should subscribe to comic', function(done) {
             Database.SubscribeComic('12345678', 'testcomic').then(function(val) {

@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js');
+const { AddComicInfo, GetComicInfoAll } = require('../database');
 
 const ChannelateComic = require('./channelate');
 const CyanideComic = require('./cyanide');
@@ -46,6 +47,20 @@ function GetWebcomic(webcomic_id) {
     }
 }
 
+async function RegisterComics() {
+    const comicInfos = await GetComicInfoAll();
+
+    ComicList.forEach(function(comic) {
+        const id = comic.getInfo().id;
+        if(!comicInfos.some(function(e) {
+            return id === e.comic_id;
+        })) {
+            // Add comic info
+            AddComicInfo(id);
+        }
+    });
+}
+
 const ComicList = [
     ChannelateComic,
     CyanideComic,
@@ -61,5 +76,6 @@ module.exports = {
     GetComic,
     GetComicEmbed,
     GetWebcomic,
+    RegisterComics,
     ComicList,
 };

@@ -4,9 +4,16 @@ const Database = require('../src/database');
 
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
-const { GetGuildInfo, GetGuildInfoAll, AddGuildInfo } = require('../src/database');
 
-Database.ConnectDatabse(config.testConnectUri, 'development');
+const { GetComic, GetComicEmbed, ComicList, RegisterComics } = require('../src/comics/comics');
+const { GetComicInfo, GetGuildInfo, GetGuildInfoAll, AddGuildInfo, ModifyComicInfo, GetGuildsSubscribedTo } = require('../src/database');
+
+Database.ConnectDatabse(config.connectUri).then(async function() {
+    await client.login(config.token);
+    await RegisterComics();
+    await CheckNewComics();
+});
+
 const client = new CommandoClient({
     commandPrefix: config.commandPrefix,
     owner: config.owner,
@@ -42,7 +49,38 @@ process.on('unhandledRejection', error => {
     console.error('Unhandled promise rejection:', error);
 });
 
-client.login(config.token);
+client.setInterval(CheckNewComics, 5 * 60 * 1000);
+
+async function CheckNewComics() {
+    for(const comic of ComicList) {
+        const id = comic.getInfo().id;
+        const latestComic = await GetComic(id, 'latest');
+        const comicInfo = await GetComicInfo(id);
+
+        if(latestComic.id === comicInfo.latest_id) {
+            continue;
+        }
+
+        const res = await ModifyComicInfo(id, { latest_id: latestComic.id });
+
+        if(res.ok !== 1) {
+            throw(Error('failed to update latest comic'));
+        }
+
+        // Get all the guilds which are subscriebd to this comic
+        const guilds = await GetGuildsSubscribedTo(id);
+        const embed = await GetComicEmbed(id, latestComic.id);
+
+        for(const guild of guilds) {
+            if(guild.comic_channel != '') {
+                // Send comic
+                const channel = await client.channels.fetch(guild.comic_channel);
+                channel.send(`New ${comic.getInfo().name} comic!`);
+                channel.send(embed);
+            }
+        }
+    }
+}
 
 // Checks to see if there are any guilds that don't have a corresponding entry in the guilds collection, and adds any that are missing
 async function CheckNewGuilds() {
