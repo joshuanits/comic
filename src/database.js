@@ -103,6 +103,22 @@ function ModifyGuildInfo(guildId, props) {
     return data.db.collection('guilds').findOneAndUpdate({ 'guild_id': guildId }, { $set: props });
 }
 
+function SubscribeComic(guildId, comicId) {
+    if(data.db == undefined) {
+        throw(Error('not connected to database'));
+    }
+
+    return data.db.collection('guilds').findOneAndUpdate({ 'guild_id': guildId }, { $push: { subscribed_comics: comicId } });
+}
+
+function UnsubscribeComic(guildId, comicId) {
+    if(data.db == undefined) {
+        throw(Error('not connected to database'));
+    }
+
+    return data.db.collection('guilds').findOneAndUpdate({ 'guild_id': guildId }, { $pull: { subscribed_comics: comicId } });
+}
+
 module.exports = {
     AddComicInfo,
     AddGuildInfo,
@@ -115,4 +131,6 @@ module.exports = {
     IsConnected,
     ModifyComicInfo,
     ModifyGuildInfo,
+    SubscribeComic,
+    UnsubscribeComic,
 };

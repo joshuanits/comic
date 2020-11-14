@@ -81,6 +81,30 @@ describe('Database testing', function() {
         });
     });
 
+    describe('#SubscribeComic', function() {
+        it('should subscribe to comic', function(done) {
+            Database.SubscribeComic('12345678', 'testcomic').then(function(val) {
+                expect(val.ok).to.equal(1);
+                return Database.GetGuildInfo('12345678');
+            }).then(function(val) {
+                expect(val.subscribed_comics).to.eql(['test', 'testcomic']);
+                done();
+            });
+        });
+    });
+
+    describe('#UnsubscribeComic', function() {
+        it('should unsubscribe from comic', function(done) {
+            Database.UnsubscribeComic('12345678', 'testcomic').then(function(val) {
+                expect(val.ok).to.equal(1);
+                return Database.GetGuildInfo('12345678');
+            }).then(function(val) {
+                expect(val.subscribed_comics).to.eql(['test']);
+                done();
+            });
+        });
+    });
+
     // comics
 
     describe('#GetComicInfoAll', function() {
