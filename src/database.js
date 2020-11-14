@@ -108,7 +108,7 @@ function SubscribeComic(guildId, comicId) {
         throw(Error('not connected to database'));
     }
 
-    return data.db.collection('guilds').findOneAndUpdate({ 'guild_id': guildId }, { $push: { subscribed_comics: comicId } });
+    return data.db.collection('guilds').findOneAndUpdate({ 'guild_id': guildId }, { $addToSet: { subscribed_comics: comicId } });
 }
 
 function UnsubscribeComic(guildId, comicId) {

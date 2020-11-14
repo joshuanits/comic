@@ -38,6 +38,14 @@ function GetComicEmbed(webcomic_id, comic_id) {
     });
 }
 
+function GetWebcomic(webcomic_id) {
+    for(let i = 0; i < ComicList.length; i++) {
+        if(ComicList[i].getInfo().id == webcomic_id) {
+            return ComicList[i];
+        }
+    }
+}
+
 const ComicList = [
     ChannelateComic,
     CyanideComic,
@@ -52,5 +60,6 @@ const ComicList = [
 module.exports = {
     GetComic,
     GetComicEmbed,
+    GetWebcomic,
     ComicList,
 };
