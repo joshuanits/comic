@@ -22,7 +22,7 @@ function AddGuildInfo(guildId) {
     }
 
     return data.db.collection('guilds').insertOne({
-        guild_id: parseInt(guildId),
+        guild_id: guildId,
         comic_channel: '',
         subscribed_comics: [],
         prefix: ',',
@@ -72,7 +72,7 @@ function GetGuildInfo(guildId) {
         throw(Error('not connected to database'));
     }
 
-    return data.db.collection('guilds').findOne({ 'guild_id': parseInt(guildId) });
+    return data.db.collection('guilds').findOne({ 'guild_id': guildId });
 }
 
 function GetGuildInfoAll() {
@@ -100,7 +100,7 @@ function ModifyGuildInfo(guildId, props) {
         throw(Error('not connected to database'));
     }
 
-    return data.db.collection('guilds').findOneAndUpdate({ 'guild_id': parseInt(guildId) }, { $set: props });
+    return data.db.collection('guilds').findOneAndUpdate({ 'guild_id': guildId }, { $set: props });
 }
 
 module.exports = {

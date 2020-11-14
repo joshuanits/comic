@@ -54,7 +54,7 @@ describe('Database testing', function() {
     describe('#GetGuildInfo', function() {
         it('should return a guild info', function(done) {
             Database.GetGuildInfo('12345678').then(function(val) {
-                expect(val.guild_id).to.equal(12345678);
+                expect(val.guild_id).to.equal('12345678');
                 done();
             });
         });
@@ -71,7 +71,7 @@ describe('Database testing', function() {
                 return Database.GetGuildInfo('12345678');
             }).then(function(val) {
                 expect(val).to.containSubset({
-                    guild_id: 12345678,
+                    guild_id: '12345678',
                     comic_channel: 'abcde',
                     subscribed_comics: ['test'],
                     prefix: ',',
