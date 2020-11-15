@@ -32,15 +32,16 @@ module.exports = class UnsubscribeCommand extends Command {
             return;
         }
 
-        const mentions = Array.from(message.mentions.channels);
+        // https://regexr.com/5g95a
+       const channelId = channel.match(/(?:<#)(\d*)(?:>)/i);
 
-        if(mentions.length === 0) {
+       if(channelId == null) {
             message.reply('You must mention a #channel');
             return;
-        }
+       }
 
-        await ModifyGuildInfo(message.guild.id, { comic_channel: mentions[0][0] });
-        message.channel.send(`Set comic channel to <#${mentions[0][0]}>`);
+        await ModifyGuildInfo(message.guild.id, { comic_channel: channelId[1] });
+        message.channel.send(`Set comic channel to <#${channelId[1]}>`);
 
     }
 };
