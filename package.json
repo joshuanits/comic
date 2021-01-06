@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/joshuanits/comic#readme",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "chai-subset": "^1.6.0",
     "discord.js": "^12.4.0",
     "discord.js-commando": "github:discordjs/Commando",
